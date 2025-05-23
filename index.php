@@ -1,161 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Log In</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
-
-  
-  <link href="assets/img/fav.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
-  
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
-  
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-
-  <link href="assets/css/style.css" rel="stylesheet">
-
-
-</head>
-
-<body>
-
-  <main>
-    <div class="container">
-
-      <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
-              <div class="d-flex justify-content-center py-4">
-                <a href="#" class="logo d-flex align-items-center w-auto">
-                  <img src="assets/img/kimc.png" alt="">
-                  <span class="d-none d-lg-block">KIMC</span>
-                </a>
-              </div><!-- End Logo -->
-
-              <div class="card mb-3">
-
-                <div class="card-body">
-
-                  <div class="pt-4 pb-2">
-                    <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                    <p class="text-center small">Enter your username & password to login</p>
-                  </div>
-
-                  <form class="row g-3 needs-validation" novalidate method="post">
-
-                    <div class="col-12">
-                      <label for="yourUsername" class="form-label">Email</label>
-                      <div class="input-group has-validation">
-                        <input type="text" name="email" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your email.</div>
-                      </div>
-                    </div>
-
-                    <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
-                    </div>
-
-                    <div class="col-12">
-                      <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                        <label class="form-check-label" for="rememberMe">Remember me</label>
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary w-100" type="submit" name="login">Login</button>
-                    </div>
-                    <div class="col-12">
-                      <p class="small mb-0">Don't have account? <a href="pages-register.php">Create an account</a></p>
-                    </div>
-                    <?php
-  if(isset($_POST['login'])){
-    $email = $_POST['email'];
-    $pass = $_POST['password'];
-
-    $conn = mysqli_connect("localhost","root","","kimc");
-    $qu = "SELECT * FROM `stud` WHERE  email = '$email' AND password='$pass'";
-
-    $exe=mysqli_query($conn,$qu);
-    
-    $row = mysqli_num_rows($exe);
-
-    if($row>0){
-      session_start();
-      $_SESSION['uemail'] = $email;
-      $_SESSION['upass'] = $pass;
-
-
-      //Checking if it is a new user or not
-    $isNewUserQuery = "SELECT * FROM `profile` WHERE email = '$email'";
-        $isNewUserResult = mysqli_query($conn, $isNewUserQuery);
-
-        if(mysqli_num_rows($isNewUserResult) > 0){
-            // User already exists, so it's an old user
-            header("Location: hostel.php");
-        } else {
-            // User doesn't exist, so it's a new user
-            header("Location: users-profile.php");
-        }
-    } else {
-        header("Location: pages-error-404.php");
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link  rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
+  <?php require('inc/links.php'); ?>
+  <title><?php echo $settings_r['site_title'] ?> - HOME</title>
+  <style>
+    .availability-form{
+      margin-top: -50px;
+      z-index: 2;
+      position: relative;
     }
-}
 
-  ?>
-                  </form>
+    @media screen and (max-width: 575px) {
+      .availability-form{
+        margin-top: 25px;
+        padding: 0 35px;
+      } 
+    }
+  </style>
+</head>
+<body class="bg-light">
 
-                </div>
+  <?php require('inc/header.php'); ?>
+
+  <!-- Carousel -->
+
+  <div class="container-fluid px-lg-4 mt-4">
+    <div class="swiper swiper-container">
+      <div class="swiper-wrapper">
+        <?php 
+          $res = selectAll('carousel');
+          while($row = mysqli_fetch_assoc($res))
+          {
+            $path = CAROUSEL_IMG_PATH;
+            echo <<<data
+              <div class="swiper-slide">
+                <img src="$path$row[image]" class="w-100 d-block">
               </div>
+            data;
+          }
+        ?>
+      </div>
+    </div>
+  </div>
 
-              <div class="credits">
-                Designed by <a href="mailto:arnoldjoshua78@gmail.com">Arnold Joshua</a>
-              </div>
+  <!-- check availability form -->
 
+  <!-- <div class="container availability-form">
+    <div class="row">
+      <div class="col-lg-12 bg-white shadow p-4 rounded">
+        <h5 class="mb-4">Check Booking Availability</h5>
+        <form action="rooms.php">
+          <div class="row align-items-end">
+            <div class="col-lg-3 mb-3">
+              <label class="form-label" style="font-weight: 500;">Check-in</label>
+              <input type="date" class="form-control shadow-none" name="checkin" required>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <label class="form-label" style="font-weight: 500;">Check-out</label>
+              <input type="date" class="form-control shadow-none" name="checkout" required>
+            </div>
+            <div class="col-lg-3 mb-3">
+              <label class="form-label" style="font-weight: 500;">Adult</label>
+              <select class="form-select shadow-none" name="adult">
+                <?php 
+                  $guests_q = mysqli_query($con,"SELECT MAX(adult) AS `max_adult`, MAX(children) AS `max_children` 
+                    FROM `rooms` WHERE `status`='1' AND `removed`='0'");  
+                  $guests_res = mysqli_fetch_assoc($guests_q);
+                  
+                  for($i=1; $i<=$guests_res['max_adult']; $i++){
+                    echo"<option value='$i'>$i</option>";
+                  }
+                ?>
+              </select>
+            </div>
+            <div class="col-lg-2 mb-3">
+              <label class="form-label" style="font-weight: 500;">Children</label>
+              <select class="form-select shadow-none" name="children">
+                <?php 
+                  for($i=1; $i<=$guests_res['max_children']; $i++){
+                    echo"<option value='$i'>$i</option>";
+                  }
+                ?>
+              </select>
+            </div>
+            <input type="hidden" name="check_availability">
+            <div class="col-lg-1 mb-lg-3 mt-2">
+              <button type="submit" class="btn text-white shadow-none custom-bg">Submit</button>
             </div>
           </div>
-        </div>
-
-      </section>
-
+        </form>
+      </div>
     </div>
-  </main><!-- End #main -->
+  </div> -->
+
+  <!-- Our Rooms -->
+
+  <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">OUR HOSTELS</h2>
+
+  <div class="container">
+    <div class="row">
+
+      <?php 
+            
+        $room_res = select("SELECT * FROM `rooms` WHERE `status`=? AND `removed`=? ORDER BY `id` DESC LIMIT 3",[1,0],'ii');
+
+        while($room_data = mysqli_fetch_assoc($room_res))
+        {
+          // get features of room
+
+          $fea_q = mysqli_query($con,"SELECT f.name FROM `features` f 
+            INNER JOIN `room_features` rfea ON f.id = rfea.features_id 
+            WHERE rfea.room_id = '$room_data[id]'");
+
+          $features_data = "";
+          while($fea_row = mysqli_fetch_assoc($fea_q)){
+            $features_data .="<span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
+              $fea_row[name]
+            </span>";
+          }
+
+          // get facilities of room
+
+          $fac_q = mysqli_query($con,"SELECT f.name FROM `facilities` f 
+            INNER JOIN `room_facilities` rfac ON f.id = rfac.facilities_id 
+            WHERE rfac.room_id = '$room_data[id]'");
+
+          $facilities_data = "";
+          while($fac_row = mysqli_fetch_assoc($fac_q)){
+            $facilities_data .="<span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
+              $fac_row[name]
+            </span>";
+          }
+
+          // get thumbnail of image
+
+          $room_thumb = ROOMS_IMG_PATH."thumbnail.jpg";
+          $thumb_q = mysqli_query($con,"SELECT * FROM `room_images` 
+            WHERE `room_id`='$room_data[id]' 
+            AND `thumb`='1'");
+
+          if(mysqli_num_rows($thumb_q)>0){
+            $thumb_res = mysqli_fetch_assoc($thumb_q);
+            $room_thumb = ROOMS_IMG_PATH.$thumb_res['image'];
+          }
+
+          $book_btn = "";
+
+          if(!$settings_r['shutdown']){
+            $login=0;
+            if(isset($_SESSION['login']) && $_SESSION['login']==true){
+              $login=1;
+            }
+
+            $book_btn = "<button onclick='checkLoginToBook($login,$room_data[id])' class='btn btn-sm text-white custom-bg shadow-none'>Book Now</button>";
+          }
+
+          $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
+            WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
+
+          $rating_res = mysqli_query($con,$rating_q);
+          $rating_fetch = mysqli_fetch_assoc($rating_res);
+
+          $rating_data = "";
+
+          if($rating_fetch['avg_rating']!=NULL)
+          {
+            $rating_data = "<div class='rating mb-4'>
+              <h6 class='mb-1'>Rating</h6>
+              <span class='badge rounded-pill bg-light'>
+            ";
+
+            for($i=0; $i<$rating_fetch['avg_rating']; $i++){
+              $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
+            }
+
+            $rating_data .= "</span>
+              </div>
+            ";
+          }
+
+          // print room card
+
+          echo <<<data
+            <div class="col-lg-4 col-md-6 my-3">
+              <div class="card border-0 shadow" style="max-width: 350px; margin: auto;">
+                <img src="$room_thumb" class="card-img-top">
+                <div class="card-body">
+                  <h5>$room_data[name]</h5>
+                  <h6 class="mb-4">₹$room_data[price] per night</h6>
+                  <div class="features mb-4">
+                    <h6 class="mb-1">Features</h6>
+                    $features_data
+                  </div>
+                  <div class="facilities mb-4">
+                    <h6 class="mb-1">Facilities</h6>
+                    $facilities_data
+                  </div>
+                  <div class="guests mb-4">
+                    <h6 class="mb-1">Guests</h6>
+                    <span class="badge rounded-pill bg-light text-dark text-wrap">
+                      $room_data[adult] Adults
+                    </span>
+                    <span class="badge rounded-pill bg-light text-dark text-wrap">
+                      $room_data[children] Children
+                    </span>
+                  </div>
+                  $rating_data
+                  <div class="d-flex justify-content-evenly mb-2">
+                    $book_btn
+                    <a href="room_details.php?id=$room_data[id]" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          data;
+
+        }
+
+      ?>
+
+      <div class="col-lg-12 text-center mt-5">
+        <a href="rooms.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Hostels >>></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Our Facilities -->
+
+  <h2 class="mt-5 pt-4 mb-4 text-center fw-bold h-font">OUR FACILITIES</h2>
+
+  <div class="container">
+    <div class="row justify-content-evenly px-lg-0 px-md-0 px-5">
+      <?php 
+        $res = mysqli_query($con,"SELECT * FROM `facilities` ORDER BY `id` DESC LIMIT 5");
+        $path = FACILITIES_IMG_PATH;
+
+        while($row = mysqli_fetch_assoc($res)){
+          echo<<<data
+            <div class="col-lg-2 col-md-2 text-center bg-white rounded shadow py-4 my-3">
+              <img src="$path$row[icon]" width="60px">
+              <h5 class="mt-3">$row[name]</h5>
+            </div>
+          data;
+        }
+      ?>
+
+      <div class="col-lg-12 text-center mt-5">
+        <a href="facilities.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Facilities >>></a>
+      </div>
+    </div>
+  </div>
+
+  
+    
+             
+         
+          
+
+ 
+              
+        </form>
+      </div>
+    </div>
+  </div>
 
 
+  <?php require('inc/footer.php'); ?>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <?php
+  
+    if(isset($_GET['account_recovery']))
+    {
+      $data = filteration($_GET);
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+      $t_date = date("Y-m-d");
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+      $query = select("SELECT * FROM `user_cred` WHERE `email`=? AND `token`=? AND `t_expire`=? LIMIT 1",
+        [$data['email'],$data['token'],$t_date],'sss');
+
+      if(mysqli_num_rows($query)==1)
+      {
+        echo<<<showModal
+          <script>
+            var myModal = document.getElementById('recoveryModal');
+
+            myModal.querySelector("input[name='email']").value = '$data[email]';
+            myModal.querySelector("input[name='token']").value = '$data[token]';
+
+            var modal = bootstrap.Modal.getOrCreateInstance(myModal);
+            modal.show();
+          </script>
+        showModal;
+      }
+      else{
+        alert("error","Invalid or Expired Link !");
+      }
+
+    }
+
+  ?>
+  
+  
+
+
+    
+  </script>
 
 </body>
-
 </html>
