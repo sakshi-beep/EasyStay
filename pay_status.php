@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -38,7 +39,7 @@
 
         $booking_fetch = mysqli_fetch_assoc($booking_res);
 
-        if($booking_fetch['trans_status']=="TXN_SUCCESS")
+        if($booking_fetch['trans_status']=="Completed")
         {
           echo<<<data
             <div class="col-12 px-4">
@@ -71,7 +72,6 @@
   </div>
 
 
-  <?php require('inc/footer.php'); ?>
 
 </body>
 </html>

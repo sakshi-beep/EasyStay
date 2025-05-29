@@ -3,10 +3,10 @@ if (isset($_POST['paymentAmount'])) {
     $curl = curl_init();
     $amountInPaisa = $_POST['paymentAmount'];
     $data = [
-				'return_url' => 'http://localhost/EasyStay/',
+				'return_url' => 'http://localhost/EasyStay/redirect_payment.php',
 				'website_url' => 'http://localhost/EasyStay/',
 				'amount' => $amountInPaisa,
-				'purchase_order_id' => 1,
+				'purchase_order_id' => $_POST['purchase_order_id'],
 				'purchase_order_name' => 'test',
 				"payment_preference" => [
 					"KHALTI",

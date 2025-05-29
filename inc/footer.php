@@ -11,28 +11,28 @@
       <a href="index.php" class="d-inline-block mb-2 text-dark text-decoration-none">Home</a> <br>
       <a href="rooms.php" class="d-inline-block mb-2 text-dark text-decoration-none">Rooms</a> <br>
       <a href="facilities.php" class="d-inline-block mb-2 text-dark text-decoration-none">Facilities</a> <br>
-      
+
     </div>
     <div class="col-lg-4 p-4">
-        <h5 class="mb-3">Follow us</h5>
-        
-        <a href="<?php echo $contact_r['fb'] ?>" class="d-inline-block text-dark text-decoration-none mb-2">
-          <i class="bi bi-facebook me-1"></i> Facebook
-        </a><br>
-        <a href="<?php echo $contact_r['insta'] ?>" class="d-inline-block text-dark text-decoration-none">
-          <i class="bi bi-instagram me-1"></i> Instagram
-        </a><br>
+      <h5 class="mb-3">Follow us</h5>
+
+      <a href="<?php echo $contact_r['fb'] ?>" class="d-inline-block text-dark text-decoration-none mb-2">
+        <i class="bi bi-facebook me-1"></i> Facebook
+      </a><br>
+      <a href="<?php echo $contact_r['insta'] ?>" class="d-inline-block text-dark text-decoration-none">
+        <i class="bi bi-instagram me-1"></i> Instagram
+      </a><br>
     </div>
   </div>
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
 <script>
 
-  function alert(type,msg,position='body')
-  {
+  function alert(type, msg, position = 'body') {
     let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
     let element = document.createElement('div');
     element.innerHTML = `
@@ -42,31 +42,29 @@
       </div>
     `;
 
-    if(position=='body'){
+    if (position == 'body') {
       document.body.append(element);
       element.classList.add('custom-alert');
     }
-    else{
+    else {
       document.getElementById(position).appendChild(element);
     }
     setTimeout(remAlert, 3000);
   }
 
-  function remAlert(){
+  function remAlert() {
     document.getElementsByClassName('alert')[0].remove();
   }
 
-  function setActive()
-  {
+  function setActive() {
     let navbar = document.getElementById('nav-bar');
     let a_tags = navbar.getElementsByTagName('a');
 
-    for(i=0; i<a_tags.length; i++)
-    {
+    for (i = 0; i < a_tags.length; i++) {
       let file = a_tags[i].href.split('/').pop();
       let file_name = file.split('.')[0];
 
-      if(document.location.href.indexOf(file_name) >= 0){
+      if (document.location.href.indexOf(file_name) >= 0) {
         a_tags[i].classList.add('active');
       }
 
@@ -75,53 +73,53 @@
 
   let register_form = document.getElementById('register-form');
 
-  register_form.addEventListener('submit', (e)=>{
+  register_form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     let data = new FormData();
 
-    data.append('name',register_form.elements['name'].value);
-    data.append('email',register_form.elements['email'].value);
-    data.append('phonenum',register_form.elements['phonenum'].value);
-    data.append('address',register_form.elements['address'].value);
-    data.append('pincode',register_form.elements['pincode'].value);
-    data.append('dob',register_form.elements['dob'].value);
-    data.append('pass',register_form.elements['pass'].value);
-    data.append('cpass',register_form.elements['cpass'].value);
-    data.append('profile',register_form.elements['profile'].files[0]);
-    data.append('register','');
+    data.append('name', register_form.elements['name'].value);
+    data.append('email', register_form.elements['email'].value);
+    data.append('phonenum', register_form.elements['phonenum'].value);
+    data.append('address', register_form.elements['address'].value);
+    data.append('pincode', register_form.elements['pincode'].value);
+    data.append('dob', register_form.elements['dob'].value);
+    data.append('pass', register_form.elements['pass'].value);
+    data.append('cpass', register_form.elements['cpass'].value);
+    data.append('profile', register_form.elements['profile'].files[0]);
+    data.append('register', '');
 
     var myModal = document.getElementById('registerModal');
     var modal = bootstrap.Modal.getInstance(myModal);
     modal.hide();
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST","ajax/login_register.php",true);
+    xhr.open("POST", "ajax/login_register.php", true);
 
-    xhr.onload = function(){
-      if(this.responseText == 'pass_mismatch'){
-        alert('error',"Password Mismatch!");
+    xhr.onload = function () {
+      if (this.responseText == 'pass_mismatch') {
+        alert('error', "Password Mismatch!");
       }
-      else if(this.responseText == 'email_already'){
-        alert('error',"Email is already registered!");
+      else if (this.responseText == 'email_already') {
+        alert('error', "Email is already registered!");
       }
-      else if(this.responseText == 'phone_already'){
-        alert('error',"Phone number is already registered!");
+      else if (this.responseText == 'phone_already') {
+        alert('error', "Phone number is already registered!");
       }
-      else if(this.responseText == 'inv_img'){
-        alert('error',"Only JPG, WEBP & PNG images are allowed!");
+      else if (this.responseText == 'inv_img') {
+        alert('error', "Only JPG, WEBP & PNG images are allowed!");
       }
-      else if(this.responseText == 'upd_failed'){
-        alert('error',"Image upload failed!");
+      else if (this.responseText == 'upd_failed') {
+        alert('error', "Image upload failed!");
       }
-      else if(this.responseText == 'mail_failed'){
-        alert('error',"Cannot send confirmation email! Server down!");
+      else if (this.responseText == 'mail_failed') {
+        alert('error', "Cannot send confirmation email! Server down!");
       }
-      else if(this.responseText == 'ins_failed'){
-        alert('error',"Registration failed! Server down!");
+      else if (this.responseText == 'ins_failed') {
+        alert('error', "Registration failed! Server down!");
       }
-      else{
-        alert('success',"Registration successful");
+      else {
+        alert('success', "Registration successful");
         register_form.reset();
       }
     }
@@ -131,56 +129,57 @@
 
   let login_form = document.getElementById('login-form');
 
-login_form.addEventListener('submit', (e)=>{
-  e.preventDefault();
+  login_form.addEventListener('submit', (e) => {
+    e.preventDefault();
 
-  let data = new FormData();
+    let data = new FormData();
 
-  data.append('email_mob', login_form.elements['email_mob'].value);
-  data.append('pass', login_form.elements['pass'].value);
-  data.append('login','');
+    data.append('email_mob', login_form.elements['email_mob'].value);
+    data.append('pass', login_form.elements['pass'].value);
+    data.append('login', '');
 
-  var myModal = document.getElementById('loginModal');
-  var modal = bootstrap.Modal.getInstance(myModal);
-  modal.hide();
+    var myModal = document.getElementById('loginModal');
+    var modal = bootstrap.Modal.getInstance(myModal);
+    modal.hide();
 
-  let xhr = new XMLHttpRequest();
-  xhr.open("POST","ajax/login_register.php",true);
+    let xhr = new XMLHttpRequest();
+    fetch('ajax/login_register.php', {
+      method: 'POST',
+      body: data
+    }).then(response => response.text())
+      .then(responseText => {
+        console.log(responseText);
+        if (responseText == 'inv_email_mob') {
+          alert('error', "Invalid Email or Mobile Number!");
+        }
+        else if (responseText == 'inactive') {
+          alert('error', "Account Suspended! Please contact Admin.");
+        }
+        else if (responseText == 'invalid_pass') {
+          alert('error', "Incorrect Password!");
+        }
+        else {
+          window.location.reload();
+        }
+      }).catch(error => {
+        console.error('Error:', error);
+      });
 
-  xhr.onload = function(){
-    if(this.responseText == 'inv_email_mob'){
-      alert('error',"Invalid Email or Mobile Number!");
+
+
+    xhr.send(data);
+  });
+
+
+
+
+
+  function checkLoginToBook(status, room_id) {
+    if (status) {
+      window.location.href = 'confirm_booking.php?id=' + room_id;
     }
-    else if(this.responseText == 'inactive'){
-      alert('error',"Account Suspended! Please contact Admin.");
-    }
-    else if(this.responseText == 'invalid_pass'){
-      alert('error',"Incorrect Password!");
-    }
-    else{
-      let fileurl = window.location.href.split('/').pop().split('?').shift();
-      if(fileurl == 'room_details.php'){
-        window.location = window.location.href;
-      }
-      else{
-        window.location = window.location.pathname;
-      }
-    }
-  }
-
-  xhr.send(data);
-});
-
-
-  
-  
-
-  function checkLoginToBook(status,room_id){
-    if(status){
-      window.location.href='confirm_booking.php?id='+room_id;
-    }
-    else{
-      alert('error','Please login to book room!');
+    else {
+      alert('error', 'Please login to book room!');
     }
   }
 
