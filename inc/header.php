@@ -1,11 +1,13 @@
 <nav id="nav-bar" class="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
   <div class="container-fluid">
+   <h3 class="mb-0 h-font">EasyStay</h3>
     <a class="navbar-brand me-5 fw-bold fs-3 h-font" href="index.php"><?php echo $settings_r['site_title'] ?></a>
-    <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse"
-      data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-      aria-label="Toggle navigation">
+    <button class="navbar-toggler shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
+   
+</a>
+
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
@@ -18,11 +20,19 @@
           <a class="nav-link me-2" href="facilities.php">Facilities</a>
         </li>
       </ul>
+      <form class="d-flex me-3" action="search.php" method="GET">
+    <input class="form-control me-2 shadow-none" type="search" name="query" placeholder="Search hostels..." aria-label="Search" required>
+    <button class="btn btn-outline-dark shadow-none" type="submit">
+      <i class="bi bi-search"></i>
+      </button>
+  </form>
+
       <div class="d-flex">
-        <?php
-        if (isset($_SESSION['login']) && $_SESSION['login'] == true) {
-          $path = USERS_IMG_PATH;
-          echo <<<data
+        <?php 
+          if(isset($_SESSION['login']) && $_SESSION['login']==true)
+          {
+            $path = USERS_IMG_PATH;
+            echo<<<data
               <div class="btn-group">
                 <button type="button" class="btn btn-outline-dark shadow-none dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
                   <img src="$path/3135716.png" style="width: 25px; height: 25px;" class="me-1 rounded-circle">
@@ -35,8 +45,10 @@
                 </ul>
               </div>
             data;
-        } else {
-          echo <<<data
+          }
+          else
+          {
+            echo<<<data
               <button type="button" class="btn btn-outline-dark shadow-none me-lg-3 me-2" data-bs-toggle="modal" data-bs-target="#loginModal">
                 Login
               </button>
@@ -44,15 +56,14 @@
                 Register
               </button>
             data;
-        }
+          }
         ?>
       </div>
     </div>
   </div>
 </nav>
 
-<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="login-form">
@@ -83,8 +94,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="registerModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form id="register-form">
@@ -111,8 +121,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label">Picture</label>
-                <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none"
-                  required>
+                <input name="profile" type="file" accept=".jpg, .jpeg, .png, .webp" class="form-control shadow-none" required>
               </div>
               <div class="col-md-12 mb-3">
                 <label class="form-label">Address</label>
@@ -145,8 +154,7 @@
   </div>
 </div>
 
-<div class="modal fade" id="forgotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="forgotModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <form id="forgot-form">
@@ -169,8 +177,8 @@
             </button>
             <button type="submit" class="btn btn-dark shadow-none">SEND LINK</button>
           </div> -->
+        </div>
+      </form>
     </div>
-    </form>
   </div>
-</div>
 </div>

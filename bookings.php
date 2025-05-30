@@ -88,13 +88,13 @@
             <div class='col-md-4 px-4 mb-4'>
               <div class='bg-white p-3 rounded shadow-sm'>
                 <h5 class='fw-bold'>$data[room_name]</h5>
-                <p>₹$data[price] per night</p>
+                <p>Rs.$data[price] per night</p>
                 <p>
                   <b>Check in: </b> $checkin <br>
                   <b>Check out: </b> $checkout
                 </p>
                 <p>
-                  <b>Amount: </b> ₹$data[price] <br>
+                  <b>Amount: </b> Rs.$data[price] <br>
                   <b>Order ID: </b> $data[order_id] <br>
                   <b>Date: </b> $date
                 </p>

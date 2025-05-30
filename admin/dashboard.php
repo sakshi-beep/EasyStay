@@ -55,7 +55,7 @@
           ?>
         </div>
 
-        <div class="row mb-4">
+        <!-- <div class="row mb-4">
           <div class="col-md-3 mb-4">
             <a href="new_bookings.php" class="text-decoration-none">
               <div class="card text-center text-success p-3">
@@ -63,8 +63,8 @@
                 <h1 class="mt-2 mb-0"><?php echo $current_bookings['new_bookings'] ?></h1>
               </div>
             </a>
-          </div>
-          <div class="col-md-3 mb-4">
+          </div> -->
+          <!-- <div class="col-md-3 mb-4">
             <a href="refund_bookings.php" class="text-decoration-none">
               <div class="card text-center text-warning p-3">
                 <h6>Refund Bookings</h6>
@@ -88,10 +88,10 @@
               </div>
             </a>
           </div>
-        </div>
+        </div> -->
 
         <div class="d-flex align-items-center justify-content-between mb-3">
-          <h5>Booking Analytics</h5>
+          <h5>Bookings</h5>
           <select class="form-select shadow-none bg-light w-auto" onchange="booking_analytics(this.value)">
             <option value="1">Past 30 Days</option>
             <option value="2">Past 90 Days</option>
@@ -105,27 +105,27 @@
             <div class="card text-center text-primary p-3">
               <h6>Total Bookings</h6>
               <h1 class="mt-2 mb-0" id="total_bookings">0</h1>
-              <h4 class="mt-2 mb-0" id="total_amt">₹0</h4>
+              
             </div>
           </div>
           <div class="col-md-3 mb-4">
             <div class="card text-center text-success p-3">
               <h6>Active Bookings</h6>
               <h1 class="mt-2 mb-0" id="active_bookings">0</h1>
-              <h4 class="mt-2 mb-0" id="active_amt">₹0</h4>
+             
             </div>
           </div>
           <div class="col-md-3 mb-4">
             <div class="card text-center text-danger p-3">
               <h6>Cancelled Bookings</h6>
               <h1 class="mt-2 mb-0" id="cancelled_bookings">0</h1>
-              <h4 class="mt-2 mb-0" id="cancelled_amt">₹0</h4>
+              
             </div>
           </div>
         </div>
 
 
-        <div class="d-flex align-items-center justify-content-between mb-3">
+        <!-- <div class="d-flex align-items-center justify-content-between mb-3">
           <h5>User, Queries, Reviews Analytics</h5>
           <select class="form-select shadow-none bg-light w-auto" onchange="user_analytics(this.value)">
             <option value="1">Past 30 Days</option>
@@ -133,9 +133,9 @@
             <option value="3">Past 1 Year</option>
             <option value="4">All time</option>
           </select>
-        </div>
+        </div> -->
       
-        <div class="row mb-3">
+        <!-- <div class="row mb-3">
           <div class="col-md-3 mb-4">
             <div class="card text-center text-success p-3">
               <h6>New Registration</h6>
@@ -154,7 +154,7 @@
               <h1 class="mt-2 mb-0" id="total_reviews">0</h1>
             </div>
           </div>
-        </div>
+        </div> -->
   
         <h5>Users</h5>
         <div class="row mb-3">
@@ -170,7 +170,7 @@
               <h1 class="mt-2 mb-0"><?php echo $current_users['active'] ?></h1>
             </div>
           </div>
-          <div class="col-md-3 mb-4">
+          <!-- <div class="col-md-3 mb-4">
             <div class="card text-center text-warning p-3">
               <h6>Inactive</h6>
               <h1 class="mt-2 mb-0"><?php echo $current_users['inactive'] ?></h1>
@@ -180,7 +180,7 @@
             <div class="card text-center text-danger p-3">
               <h6>Unverified</h6>
               <h1 class="mt-2 mb-0"><?php echo $current_users['unverified'] ?></h1>
-            </div>
+            </div> -->
           </div>
         </div>
 

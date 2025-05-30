@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +14,8 @@
 
     $checkin_default="";
     $checkout_default="";
-    $adult_default="";
-    $children_default="";
+    $student_default="";
+    // $children_default="";
 
     if(isset($_GET['check_availability']))
     {
@@ -24,8 +23,8 @@
 
       $checkin_default = $frm_data['checkin'];
       $checkout_default = $frm_data['checkout'];
-      $adult_default = $frm_data['adult'];
-      $children_default = $frm_data['children'];
+      $student_default = $frm_data['student'];
+      // $children_default = $frm_data['children'];
     }
   ?>
 
@@ -80,13 +79,13 @@
               <!-- Guests -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
-                  <span>GUESTS</span>
+                  <!-- <span>Students</span>
                   <button id="guests_btn" onclick="guests_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
-                </h5>
+                </h5> -->
                 <div class="d-flex">
                   <div class="me-3">
                     <label class="form-label">Students</label>
-                    <input type="number" min="1" id="adults" value="<?php echo $adult_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
+                    <input type="number" min="1" id="student" value="<?php echo $adult_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
                   </div>
                   <!-- <div>
                     <label class="form-label">Children</label>
@@ -108,14 +107,15 @@
 
   <script>
 
+
     let rooms_data = document.getElementById('rooms-data');
 
     let checkin = document.getElementById('checkin');
     let checkout = document.getElementById('checkout');
     let chk_avail_btn = document.getElementById('chk_avail_btn');
 
-    let adults = document.getElementById('adults');
-    let children = document.getElementById('children');
+    let adults = document.getElementById('student');
+    // let children = document.getElementById('children');
     let guests_btn = document.getElementById('guests_btn');
     
     let facilities_btn = document.getElementById('facilities_btn');
@@ -128,8 +128,8 @@
       });
 
       let guests = JSON.stringify({
-        adults: adults.value,
-        children: children.value
+        students: adults.value,
+        // children: children.value
       });
 
       let facility_list = {"facilities":[]};
@@ -163,6 +163,8 @@
 
       xhr.send();
     }
+
+    fetch_rooms();
 
     function chk_avail_filter(){
       if(checkin.value!='' && checkout.value !=''){

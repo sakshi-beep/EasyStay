@@ -13,7 +13,7 @@ function add_room()
   data.append('area',add_room_form.elements['area'].value);
   data.append('price',add_room_form.elements['price'].value);
   data.append('quantity',add_room_form.elements['quantity'].value);
-  data.append('adult',add_room_form.elements['adult'].value);
+  data.append('student',add_room_form.elements['student'].value);
   data.append('children',add_room_form.elements['children'].value);
   data.append('desc',add_room_form.elements['desc'].value);
 
@@ -80,11 +80,10 @@ function edit_details(id)
     let data = JSON.parse(this.responseText);
 
     edit_room_form.elements['name'].value = data.roomdata.name;
-    edit_room_form.elements['area'].value = data.roomdata.area;
+    edit_room_form.elements['location'].value = data.roomdata.location;
     edit_room_form.elements['price'].value = data.roomdata.price;
     edit_room_form.elements['quantity'].value = data.roomdata.quantity;
-    edit_room_form.elements['adult'].value = data.roomdata.adult;
-    edit_room_form.elements['children'].value = data.roomdata.children;
+    edit_room_form.elements['student'].value = data.roomdata.student;
     edit_room_form.elements['desc'].value = data.roomdata.description;
     edit_room_form.elements['room_id'].value = data.roomdata.id;
 
@@ -115,11 +114,10 @@ function submit_edit_room()
   data.append('edit_room','');
   data.append('room_id',edit_room_form.elements['room_id'].value);
   data.append('name',edit_room_form.elements['name'].value);
-  data.append('area',edit_room_form.elements['area'].value);
+  data.append('area',edit_room_form.elements['location'].value);
   data.append('price',edit_room_form.elements['price'].value);
   data.append('quantity',edit_room_form.elements['quantity'].value);
-  data.append('adult',edit_room_form.elements['adult'].value);
-  data.append('children',edit_room_form.elements['children'].value);
+  data.append('student',edit_room_form.elements['student'].value);
   data.append('desc',edit_room_form.elements['desc'].value);
 
   let features = [];

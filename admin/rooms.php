@@ -36,8 +36,8 @@
                   <tr class="bg-dark text-light">
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Area</th>
-                    <th scope="col">Guests</th>
+                    <th scope="col">Location</th>
+                    <th scope="col">Students</th>
                     <th scope="col">Price</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Status</th>
@@ -73,8 +73,8 @@
                 <input type="text" name="name" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Area</label>
-                <input type="number" min="1" name="area" class="form-control shadow-none" required>
+                <label class="form-label fw-bold">Location</label>
+                <input type="text" min="1" name="location" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
                 <label class="form-label fw-bold">Price</label>
@@ -85,13 +85,10 @@
                 <input type="number" min="1" name="quantity" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Adult (Max.)</label>
-                <input type="number" min="1" name="adult" class="form-control shadow-none" required>
+                <label class="form-label fw-bold">Student (Max.)</label>
+                <input type="number" min="1" name="student" class="form-control shadow-none" required>
               </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Children (Max.)</label>
-                <input type="number" min="1" name="children" class="form-control shadow-none" required>
-              </div>
+              
               <div class="col-12 mb-3">
                 <label class="form-label fw-bold">Features</label>
                 <div class="row">
@@ -159,7 +156,7 @@
                 <input type="text" name="name" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Area</label>
+                <label class="form-label fw-bold">Price</label>
                 <input type="number" min="1" name="area" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
@@ -171,13 +168,10 @@
                 <input type="number" min="1" name="quantity" class="form-control shadow-none" required>
               </div>
               <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Adult (Max.)</label>
+                <label class="form-label fw-bold">Student (Max.)</label>
                 <input type="number" min="1" name="adult" class="form-control shadow-none" required>
               </div>
-              <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Children (Max.)</label>
-                <input type="number" min="1" name="children" class="form-control shadow-none" required>
-              </div>
+              
               <div class="col-12 mb-3">
                 <label class="form-label fw-bold">Features</label>
                 <div class="row">

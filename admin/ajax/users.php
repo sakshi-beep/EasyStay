@@ -41,7 +41,7 @@
         <tr>
           <td>$i</td>
           <td>
-            <img src='$path$row[profile]' width='55px'>
+            <img src='$path/3135716.png' width='55px'>
             <br>
             $row[name]
           </td>

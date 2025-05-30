@@ -8,10 +8,8 @@
 
   if(isset($_GET['fetch_rooms']))
   {
-    // check availability data decode
     $chk_avail = json_decode($_GET['chk_avail'],true);
     
-    // checkin and checkout filter validations
     if($chk_avail['checkin']!='' && $chk_avail['checkout']!='')
     {
       $today_date = new DateTime(date("Y-m-d"));
@@ -32,15 +30,12 @@
       }
     }
 
-    // guests data decode
     $guests = json_decode($_GET['guests'],true);
-    $adults = ($guests['adults']!='') ? $guests['adults'] : 0;
-    $children = ($guests['children']!='') ? $guests['children'] : 0;
+    $students = ($guests['students']!='') ? $guests['students'] : 0;
+    // $children = ($guests['children']!='') ? $guests['children'] : 0;
 
-    // facilities data decode
     $facility_list = json_decode($_GET['facility_list'],true);
 
-    // count no. of rooms and ouput variable to store room cards
     $count_rooms = 0;
     $output = "";
 
@@ -51,7 +46,7 @@
 
 
     // query for room cards with guests filter
-    $room_res = select("SELECT * FROM `rooms` WHERE `adult`>=? AND `children`>=? AND `status`=? AND `removed`=?",[$adults,$children,1,0],'iiii');
+    $room_res = select("SELECT * FROM `rooms` WHERE `student`>=? AND `status`=? AND `removed`=?",[$students,1,0],'iii');
 
     while($room_data = mysqli_fetch_assoc($room_res))
     {
@@ -152,10 +147,7 @@
               <div class='guests'>
                 <h6 class='mb-1'>Guests</h6>
                 <span class='badge rounded-pill bg-light text-dark text-wrap'>
-                  $room_data[adult] Adults
-                </span>
-                <span class='badge rounded-pill bg-light text-dark text-wrap'>
-                  $room_data[children] Children
+                  $room_data[student] Student
                 </span>
               </div>
             </div>
