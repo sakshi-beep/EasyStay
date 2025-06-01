@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link  rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css">
-  <?php require_once ('inc/links.php'); ?>
+  <?php require('inc/links.php'); ?>
   <title><?php echo $settings_r['site_title'] ?> - HOME</title>
   <style>
     .availability-form{
@@ -27,6 +27,7 @@
 
   <?php require('inc/header.php'); ?>
 
+  <!-- Carousel -->
 
   <div class="container-fluid px-lg-4 mt-4">
     <div class="swiper swiper-container">
@@ -64,14 +65,14 @@
               <input type="date" class="form-control shadow-none" name="checkout" required>
             </div>
             <div class="col-lg-3 mb-3">
-              <label class="form-label" style="font-weight: 500;">student</label>
-              <select class="form-select shadow-none" name="student">
+              <label class="form-label" style="font-weight: 500;">Adult</label>
+              <select class="form-select shadow-none" name="adult">
                 <?php 
-                  $guests_q = mysqli_query($con,"SELECT MAX(student) AS `max_student` 
+                  $guests_q = mysqli_query($con,"SELECT MAX(adult) AS `max_adult`, MAX(children) AS `max_children` 
                     FROM `rooms` WHERE `status`='1' AND `removed`='0'");  
                   $guests_res = mysqli_fetch_assoc($guests_q);
                   
-                  for($i=1; $i<=$guests_res['max_student']; $i++){
+                  for($i=1; $i<=$guests_res['max_adult']; $i++){
                     echo"<option value='$i'>$i</option>";
                   }
                 ?>
@@ -81,9 +82,9 @@
               <label class="form-label" style="font-weight: 500;">Children</label>
               <select class="form-select shadow-none" name="children">
                 <?php 
-                  // for($i=1; $i<=$guests_res['max_children']; $i++){
-                  //   echo"<option value='$i'>$i</option>";
-                  // }
+                  for($i=1; $i<=$guests_res['max_children']; $i++){
+                    echo"<option value='$i'>$i</option>";
+                  }
                 ?>
               </select>
             </div>
@@ -159,11 +160,29 @@
             $book_btn = "<button onclick='checkLoginToBook($login,$room_data[id])' class='btn btn-sm text-white custom-bg shadow-none'>Book Now</button>";
           }
 
-         
+          $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
+            WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
 
-         
+          $rating_res = mysqli_query($con,$rating_q);
+          $rating_fetch = mysqli_fetch_assoc($rating_res);
 
-          
+          $rating_data = "";
+
+          if($rating_fetch['avg_rating']!=NULL)
+          {
+            $rating_data = "<div class='rating mb-4'>
+              <h6 class='mb-1'>Rating</h6>
+              <span class='badge rounded-pill bg-light'>
+            ";
+
+            for($i=0; $i<$rating_fetch['avg_rating']; $i++){
+              $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
+            }
+
+            $rating_data .= "</span>
+              </div>
+            ";
+          }
 
           // print room card
 
@@ -185,11 +204,10 @@
                   <div class="guests mb-4">
                     <h6 class="mb-1">Guests</h6>
                     <span class="badge rounded-pill bg-light text-dark text-wrap">
-                      $room_data[student] Students
+                      $room_data[adult] People
                     </span>
-                    
                   </div>
-                
+                  $rating_data
                   <div class="d-flex justify-content-evenly mb-2">
                     $book_btn
                     <a href="room_details.php?id=$room_data[id]" class="btn btn-sm btn-outline-dark shadow-none">More details</a>
