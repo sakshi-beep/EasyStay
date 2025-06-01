@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <?php require('inc/links.php'); ?>
+  <?php require 'inc/links.php'; ?>
   <title><?php echo $settings_r['site_title'] ?> - ROOMS</title>
 </head>
 <body class="bg-light">
@@ -14,7 +14,7 @@
 
     $checkin_default="";
     $checkout_default="";
-    $student_default="";
+    $people_default="";
     // $children_default="";
 
     if(isset($_GET['check_availability']))
@@ -23,7 +23,7 @@
 
       $checkin_default = $frm_data['checkin'];
       $checkout_default = $frm_data['checkout'];
-      $student_default = $frm_data['student'];
+      $people_default = $frm_data['people'];
       // $children_default = $frm_data['children'];
     }
   ?>
@@ -79,13 +79,13 @@
               <!-- Guests -->
               <div class="border bg-light p-3 rounded mb-3">
                 <h5 class="d-flex align-items-center justify-content-between mb-3" style="font-size: 18px;">
-                  <!-- <span>Students</span>
+                  <!-- <span>peoples</span>
                   <button id="guests_btn" onclick="guests_clear()" class="btn shadow-none btn-sm text-secondary d-none">Reset</button>
                 </h5> -->
                 <div class="d-flex">
                   <div class="me-3">
-                    <label class="form-label">Students</label>
-                    <input type="number" min="1" id="student" value="<?php echo $adult_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
+                    <label class="form-label">peoples</label>
+                    <input type="number" min="1" id="people" value="<?php echo $people_default ?>" oninput="guests_filter()" class="form-control shadow-none">                 
                   </div>
                   <!-- <div>
                     <label class="form-label">Children</label>
@@ -114,7 +114,7 @@
     let checkout = document.getElementById('checkout');
     let chk_avail_btn = document.getElementById('chk_avail_btn');
 
-    let adults = document.getElementById('student');
+    let people = document.getElementById('people');
     // let children = document.getElementById('children');
     let guests_btn = document.getElementById('guests_btn');
     
@@ -128,7 +128,7 @@
       });
 
       let guests = JSON.stringify({
-        students: adults.value,
+        peoples: people.value,
         // children: children.value
       });
 
@@ -181,14 +181,14 @@
     }
 
     function guests_filter(){
-      if(adults.value>0 || children.value>0){
+      if(people.value>0 || children.value>0){
         fetch_rooms();
         guests_btn.classList.remove('d-none');
       }
     }
 
     function guests_clear(){
-      adults.value='';
+      people.value='';
       children.value='';
       guests_btn.classList.add('d-none');
       fetch_rooms();

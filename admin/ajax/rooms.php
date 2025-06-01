@@ -12,8 +12,8 @@
     $frm_data = filteration($_POST);
     $flag = 0;
 
-    $q1 = "INSERT INTO `rooms` (`name`, `location`, `price`, `quantity`, `student`, `description`) VALUES (?,?,?,?,?,?,?)";
-    $values = [$frm_data['name'],$frm_data['location'],$frm_data['price'],$frm_data['quantity'],$frm_data['student'],$frm_data['desc']];
+    $q1 = "INSERT INTO `rooms` (`name`, `location`, `price`, `quantity`, `people`, `description`) VALUES (?,?,?,?,?,?,?)";
+    $values = [$frm_data['name'],$frm_data['location'],$frm_data['price'],$frm_data['quantity'],$frm_data['people'],$frm_data['desc']];
 
     if(insert($q1,$values,'siiiiis')){
       $flag = 1;
@@ -85,7 +85,7 @@
           <td>$row[location]</td>
           <td>
             <span class='badge rounded-pill bg-light text-dark'>
-              student: $row[student]
+              people: $row[people]
             </span><br>
             
           </td>
@@ -154,8 +154,8 @@
     $flag = 0;
 
     $q1 = "UPDATE `rooms` SET `name`=?,`location`=?,`price`=?,`quantity`=?,
-      `student`=?,`description`=? WHERE `id`=?";
-    $values = [$frm_data['name'],$frm_data['location'],$frm_data['price'],$frm_data['quantity'],$frm_data['student'],$frm_data['desc'],$frm_data['room_id']];
+      `people`=?,`description`=? WHERE `id`=?";
+    $values = [$frm_data['name'],$frm_data['location'],$frm_data['price'],$frm_data['quantity'],$frm_data['people'],$frm_data['desc'],$frm_data['room_id']];
     
     if(update($q1,$values,'siiiiisi')){
       $flag = 1;
