@@ -107,7 +107,7 @@
 
       <?php 
             
-        $room_res = select("SELECT * FROM `rooms` WHERE `status`=? AND `removed`=? ORDER BY `id` DESC LIMIT 3",[1,0],'ii');
+        $room_res = select("SELECT * FROM `rooms` ORDER BY `id` DESC LIMIT 3",[1,0],'ii');
 
         while($room_data = mysqli_fetch_assoc($room_res))
         {
