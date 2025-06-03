@@ -14,98 +14,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
--- Dumping structure for table hostelbooking.admin_cred
-CREATE TABLE IF NOT EXISTS `admin_cred` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `admin_name` varchar(150) NOT NULL,
-  `admin_pass` varchar(150) NOT NULL,
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.admin_cred: ~1 rows (approximately)
-INSERT INTO `admin_cred` (`sr_no`, `admin_name`, `admin_pass`) VALUES
-	(1, 'sakshi', '12345');
-
--- Dumping structure for table hostelbooking.booking_details
-CREATE TABLE IF NOT EXISTS `booking_details` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `booking_id` int NOT NULL,
-  `room_name` varchar(100) NOT NULL,
-  `price` int NOT NULL,
-  `total_pay` int NOT NULL,
-  `room_no` varchar(100) DEFAULT NULL,
-  `user_name` varchar(100) NOT NULL,
-  `phonenum` varchar(100) NOT NULL,
-  `address` varchar(150) NOT NULL,
-  PRIMARY KEY (`sr_no`),
-  KEY `booking_id` (`booking_id`),
-  CONSTRAINT `booking_details_ibfk_1` FOREIGN KEY (`booking_id`) REFERENCES `booking_order` (`booking_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.booking_details: ~1 rows (approximately)
-INSERT INTO `booking_details` (`sr_no`, `booking_id`, `room_name`, `price`, `total_pay`, `room_no`, `user_name`, `phonenum`, `address`) VALUES
-	(21, 21, 'Luxury Room', 600, 1800, '2', 'Sakshi Thapa', '9840648593', 'Madikhatar');
-
--- Dumping structure for table hostelbooking.booking_order
-CREATE TABLE IF NOT EXISTS `booking_order` (
-  `booking_id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `room_id` int NOT NULL,
-  `check_in` date NOT NULL,
-  `check_out` date NOT NULL,
-  `arrival` int NOT NULL DEFAULT '0',
-  `booking_status` varchar(100) NOT NULL DEFAULT 'pending',
-  `order_id` varchar(150) NOT NULL,
-  `trans_id` varchar(200) DEFAULT NULL,
-  `trans_amt` int NOT NULL,
-  `trans_status` varchar(100) NOT NULL DEFAULT 'pending',
-  `trans_resp_msg` varchar(200) DEFAULT NULL,
-  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`booking_id`),
-  KEY `user_id` (`user_id`),
-  KEY `room_id` (`room_id`),
-  CONSTRAINT `booking_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user_cred` (`id`),
-  CONSTRAINT `booking_order_ibfk_2` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.booking_order: ~2 rows (approximately)
-INSERT INTO `booking_order` (`booking_id`, `user_id`, `room_id`, `check_in`, `check_out`, `arrival`, `booking_status`, `order_id`, `trans_id`, `trans_amt`, `trans_status`, `trans_resp_msg`, `datentime`) VALUES
-	(16, 2, 5, '2022-08-26', '2022-08-28', 1, 'booked', 'ORD_28784829', '20220825111212800110168627505415606', 1200, 'TXN_SUCCESS', 'Txn Success', '2022-08-25 01:52:04'),
-	(21, 9, 5, '2025-05-30', '2025-06-02', 1, 'booked', 'ORD_94824836', 'nPK6JMzg8H4Gy5JGu4NMwj', 1800, 'Completed', 'Completed', '2025-05-29 21:12:45');
-
--- Dumping structure for table hostelbooking.carousel
-CREATE TABLE IF NOT EXISTS `carousel` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `image` varchar(150) NOT NULL,
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.carousel: ~4 rows (approximately)
-INSERT INTO `carousel` (`sr_no`, `image`) VALUES
-	(5, 'IMG_93127.png'),
-	(6, 'IMG_99736.png'),
-	(8, 'IMG_40905.png'),
-	(9, 'IMG_55677.png');
-
--- Dumping structure for table hostelbooking.contact_details
-CREATE TABLE IF NOT EXISTS `contact_details` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `address` varchar(50) NOT NULL,
-  `gmap` varchar(100) NOT NULL,
-  `pn1` bigint NOT NULL,
-  `pn2` bigint NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `fb` varchar(100) NOT NULL,
-  `insta` varchar(100) NOT NULL,
-  `tw` varchar(100) NOT NULL,
-  `iframe` varchar(300) NOT NULL,
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.contact_details: ~1 rows (approximately)
-INSERT INTO `contact_details` (`sr_no`, `address`, `gmap`, `pn1`, `pn2`, `email`, `fb`, `insta`, `tw`, `iframe`) VALUES
-	(1, 'VJTI, Matunga, Mumbai, Maharashtra', 'https://goo.gl/maps/p9s1LYMHvWiww7pZ8', 918529636985, 91111222333558, 'amey.neal@gmail.com', 'https://www.facebook.com/', 'https://www.facebook.com/', 'https://www.facebook.com/', 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.9433432697824!2d72.85393251443796!3d19.02221808711878!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7cf26f4972d21:0x2c50185364aca4c1!2sVeermata Jijabai Technological Institute!5e0!3m2!1sen!2sin!4v1670867131904!5m2!1sen!2sin');
-
 -- Dumping structure for table hostelbooking.facilities
 CREATE TABLE IF NOT EXISTS `facilities` (
   `id` int NOT NULL AUTO_INCREMENT,
@@ -150,16 +58,67 @@ CREATE TABLE IF NOT EXISTS `rooms` (
   `status` tinyint NOT NULL DEFAULT '1',
   `removed` int NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Dumping data for table hostelbooking.rooms: ~6 rows (approximately)
+-- Dumping data for table hostelbooking.rooms: ~57 rows (approximately)
 INSERT INTO `rooms` (`id`, `name`, `location`, `price`, `quantity`, `people`, `description`, `status`, `removed`) VALUES
 	(1, 'simple room', '159', 58, 56, 12, 'asdf asd', 1, 1),
 	(2, 'simple room 2', '785', 159, 85, 452, 'adfasdfa sd', 1, 1),
 	(3, 'Simple Room', '250', 300, 10, 5, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates impedit perspiciatis, nobis libero culpa error officiis totam?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dic', 1, 0),
 	(4, 'Deluxe Room', '300', 500, 10, 3, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates impedit perspiciatis, nobis libero culpa error officiis totam?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dic', 1, 0),
 	(5, 'Luxury Room', '600', 600, 2, 8, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates impedit perspiciatis, nobis libero culpa error officiis totam?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dic', 1, 0),
-	(6, 'Supreme deluxe room', '500', 900, 12, 9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates impedit perspiciatis, nobis libero culpa error officiis totam?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dic', 1, 0);
+	(6, 'Supreme deluxe room', '500', 900, 12, 9, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates impedit perspiciatis, nobis libero culpa error officiis totam?Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dic', 1, 0),
+	(7, 'Sunrise Dormitory', 'Kathmandu', 700, 5, 4, 'Affordable shared dormitory in the city center.', 1, 0),
+	(8, 'Everest View Room', 'Pokhara', 1200, 2, 2, 'Cozy private room with mountain views.', 1, 0),
+	(9, 'Peaceful Stay', 'Lalitpur', 800, 3, 3, 'Quiet neighborhood with easy transport access.', 1, 0),
+	(10, 'Budget Backpacker', 'Kathmandu', 500, 10, 6, 'Basic dorm for backpackers on a budget.', 1, 0),
+	(11, 'Riverside Lodge', 'Chitwan', 900, 4, 2, 'Close to Chitwan National Park.', 1, 0),
+	(12, 'Eco Homestay', 'Bhaktapur', 1000, 3, 2, 'Eco-friendly homestay with local meals.', 1, 0),
+	(13, 'Valley Guest House', 'Kathmandu', 950, 6, 2, 'Popular among international travelers.', 1, 0),
+	(14, 'Mountain Base Hostel', 'Pokhara', 750, 5, 4, 'Perfect for hikers and trekkers.', 1, 0),
+	(15, 'Thamel Stay', 'Kathmandu', 1100, 4, 2, 'Located in the tourist hub of Thamel.', 1, 0),
+	(16, 'Namaste Room', 'Lalitpur', 850, 2, 2, 'Clean and comfortable rooms.', 1, 0),
+	(17, 'New Horizon Hostel', 'Dharan', 800, 3, 3, 'Spacious rooms with AC.', 1, 0),
+	(18, 'Tranquil Lodge', 'Ilam', 600, 4, 2, 'Great place to relax and unwind.', 1, 0),
+	(19, 'Green Valley Inn', 'Pokhara', 1300, 2, 2, 'Green surroundings and great views.', 1, 0),
+	(20, 'Heritage Hostel', 'Bhaktapur', 950, 3, 3, 'Historic area with cultural sites.', 1, 0),
+	(21, 'Skyline Stay', 'Kathmandu', 1200, 4, 2, 'Rooftop dining and lounge.', 1, 0),
+	(22, 'Peace Hostel', 'Lalitpur', 780, 5, 3, 'Affordable and peaceful.', 1, 0),
+	(23, 'Urban Traveler', 'Kathmandu', 900, 6, 2, 'For urban explorers.', 1, 0),
+	(24, 'Nature Lodge', 'Pokhara', 1000, 3, 2, 'Near lakeside with peaceful view.', 1, 0),
+	(25, 'Metro Hostel', 'Butwal', 850, 4, 4, 'Close to bus park and market.', 1, 0),
+	(26, 'Sunshine Inn', 'Itahari', 750, 3, 2, 'Friendly staff and clean rooms.', 1, 0),
+	(27, 'Pine Tree House', 'Dhulikhel', 950, 2, 2, 'Nature retreat near Dhulikhel hills.', 1, 0),
+	(28, 'Traveler\'s Nest', 'Biratnagar', 700, 5, 4, 'Popular with students and solo travelers.', 1, 0),
+	(29, 'Jungle Stay', 'Chitwan', 1050, 3, 2, 'Jungle safari tours available.', 1, 0),
+	(30, 'Himalayan Basecamp', 'Manang', 1100, 2, 2, 'For trekkers going to Annapurna.', 1, 0),
+	(31, 'Cozy Corner', 'Bhaktapur', 800, 4, 3, 'Nice shared kitchen and lounge.', 1, 0),
+	(32, 'Cityscape Hostel', 'Kathmandu', 950, 3, 2, 'Modern rooms with WiFi.', 1, 0),
+	(33, 'Namobuddha Retreat', 'Kavre', 1300, 2, 2, 'Spiritual and peaceful stay.', 1, 0),
+	(34, 'Nepal Nights', 'Lalitpur', 880, 5, 2, 'Well-lit and safe for women travelers.', 1, 0),
+	(35, 'Happy Home', 'Birgunj', 800, 4, 3, 'Local hospitality and home-cooked meals.', 1, 0),
+	(36, 'Backpacker Bunk', 'Kathmandu', 500, 6, 6, 'Ideal for quick overnight stays.', 1, 0),
+	(37, 'Sunset Rooms', 'Pokhara', 1250, 3, 2, 'Lakeview balconies.', 1, 0),
+	(38, 'Central Lodge', 'Nepalgunj', 900, 4, 3, 'Downtown location.', 1, 0),
+	(39, 'Simple Stay', 'Janakpur', 650, 3, 4, 'Clean and basic facilities.', 1, 0),
+	(40, 'Trekkers Point', 'Gorkha', 850, 2, 3, 'Near trekking routes.', 1, 0),
+	(41, 'Everest Hub', 'Solukhumbu', 1400, 2, 2, 'Perfect stop before basecamp.', 1, 0),
+	(42, 'Forest View Hostel', 'Makwanpur', 920, 3, 3, 'Quiet and green surroundings.', 1, 0),
+	(43, 'Hilltop Lodge', 'Palpa', 850, 2, 2, 'Great views and fresh air.', 1, 0),
+	(44, 'River Breeze', 'Bardia', 970, 3, 2, 'Safari and river walk options.', 1, 0),
+	(45, 'CoLiving Hub', 'Kathmandu', 1000, 6, 2, 'Work-from-hostel setup.', 1, 0),
+	(46, 'Eastern Breeze', 'Damak', 800, 4, 3, 'Good for families and groups.', 1, 0),
+	(47, 'Mero Hostel', 'Kathmandu', 950, 5, 2, 'Popular among locals.', 1, 0),
+	(48, 'Student Stay', 'Hetauda', 700, 3, 4, 'For college students.', 1, 0),
+	(49, 'Pokhara Paradise', 'Pokhara', 1350, 2, 2, 'Luxury feel near Fewa Lake.', 1, 0),
+	(50, 'Cultural Inn', 'Bhaktapur', 980, 3, 2, 'Live like a local.', 1, 0),
+	(51, 'Nomad Nest', 'Kathmandu', 1100, 4, 3, 'Digital nomad friendly.', 1, 0),
+	(52, 'Serene Stay', 'Dhulikhel', 950, 2, 2, 'Yoga, meditation and retreat.', 1, 0),
+	(53, 'Trailblazer Hostel', 'Lamjung', 880, 3, 4, 'Group treks start here.', 1, 0),
+	(54, 'Village Homestay', 'Nuwakot', 770, 3, 2, 'Traditional village setup.', 1, 0),
+	(55, 'Urban Nights', 'Kathmandu', 1050, 4, 2, 'Rooftop café and lounge.', 1, 0),
+	(56, 'Evergreen Rooms', 'Pokhara', 900, 3, 2, 'Greenery and peaceful.', 1, 0),
+	(57, 'Basecamp Lodge', 'Rasuwa', 1200, 2, 2, 'For Langtang route trekkers.', 1, 0);
 
 -- Dumping structure for table hostelbooking.room_facilities
 CREATE TABLE IF NOT EXISTS `room_facilities` (
@@ -240,77 +199,6 @@ INSERT INTO `room_images` (`sr_no`, `room_id`, `image`, `thumb`) VALUES
 	(23, 5, 'IMG_70583.png', 0),
 	(24, 6, 'IMG_67761.png', 0),
 	(25, 6, 'IMG_69824.png', 1);
-
--- Dumping structure for table hostelbooking.settings
-CREATE TABLE IF NOT EXISTS `settings` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `site_title` varchar(50) NOT NULL,
-  `site_about` varchar(250) NOT NULL,
-  `shutdown` tinyint(1) NOT NULL,
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.settings: ~1 rows (approximately)
-INSERT INTO `settings` (`sr_no`, `site_title`, `site_about`, `shutdown`) VALUES
-	(1, '', '', 0);
-
--- Dumping structure for table hostelbooking.team_details
-CREATE TABLE IF NOT EXISTS `team_details` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `picture` varchar(150) NOT NULL,
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.team_details: ~2 rows (approximately)
-INSERT INTO `team_details` (`sr_no`, `name`, `picture`) VALUES
-	(16, 'Amey', 'IMG_38410.jpg'),
-	(17, 'Neal', 'IMG_69823.jpg');
-
--- Dumping structure for table hostelbooking.user_cred
-CREATE TABLE IF NOT EXISTS `user_cred` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `address` varchar(120) NOT NULL,
-  `phonenum` varchar(100) NOT NULL,
-  `pincode` int NOT NULL,
-  `dob` date NOT NULL,
-  `password` varchar(200) NOT NULL,
-  `is_verified` int NOT NULL DEFAULT '0',
-  `token` varchar(200) DEFAULT NULL,
-  `t_expire` date DEFAULT NULL,
-  `status` int NOT NULL DEFAULT '1',
-  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.user_cred: ~7 rows (approximately)
-INSERT INTO `user_cred` (`id`, `name`, `email`, `address`, `phonenum`, `pincode`, `dob`, `password`, `is_verified`, `token`, `t_expire`, `status`, `datentime`) VALUES
-	(2, 'neal', 'neal@gmail.com', 'ad', '123', 123324, '2022-06-12', '$2y$10$B/CaqVvi4GIKZJFbQnCvnOccqVzuOWLftXWodOA.bS.Y/KduJC0Qq', 1, NULL, NULL, 1, '2022-06-12 16:05:59'),
-	(5, 'amey', 'helubeti@finews.biz', 'asd', '1234', 123, '2022-12-13', '$2y$10$NtKNL5Ogn.m3NViVu/DKIevNhms7thrZP.qTnPpqooncOSygLw9hS', 1, '24ffd287a4c2eda5f2b424be2824f997', NULL, 1, '2022-12-13 02:37:19'),
-	(6, 'amey', 'xelih35531@lubde.com', 'asd', '1123', 123, '2022-12-13', '$2y$10$aoCaCM6Ji3VuZlO0YFl.Y.O4vv2cqJr0HiT2oVH5sy3AWQJqyyQJ6', 1, 'ef6dc7ba39cf4bf844244d3ef927a3e7', NULL, 1, '2022-12-13 02:40:42'),
-	(7, 'harry', 'harryd123@gmail.com', 'asd', '12345', 123, '2022-12-13', '$2y$10$kiw8LOLFK9e/I4u5i3vO0.GkMpBKAbeZguOqtp1HD0mBoPyAwXFhq', 0, '5c9f04397ff3e693f7cbfccea1044483', NULL, 1, '2022-12-13 02:42:37'),
-	(8, 'a', 'cejika9124@paxven.com', 'a', '12', 1, '2022-12-13', '$2y$10$0kAvtcnPie9S0W2DGjxaBuI8rvrC5Zq7BVUyNmST14J25tm2Vzdyu', 0, '250dd45640f7d810313b27e758a267af', NULL, 1, '2022-12-13 02:55:39'),
-	(9, 'Sakshi Thapa', 'www@gmail.com', 'Madikhatar', '9840648593', 44600, '1999-09-14', '$2y$10$jgCEYFj8EaGFEUzfxDJpQuq0.Id4bBZBq2HAOIY5sM/B1naQq/c1.', 0, '4633315df231086260078ed659c7c752', NULL, 1, '2025-05-09 10:38:39'),
-	(10, 'Ram', 'pakulithapa9@gmail.com', 'Pokhara', '9840648594', 2345, '2025-05-01', '$2y$10$hokgHdZ97b8M56gKmR1EAOpP6EuTKWMy7zs8nk9k3aiYAgMmC2rZG', 0, '0b4dd1885d7a44753879d5f452646456', NULL, 1, '2025-05-28 13:36:55');
-
--- Dumping structure for table hostelbooking.user_queries
-CREATE TABLE IF NOT EXISTS `user_queries` (
-  `sr_no` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `email` varchar(150) NOT NULL,
-  `subject` varchar(200) NOT NULL,
-  `message` varchar(500) NOT NULL,
-  `datentime` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `seen` tinyint NOT NULL DEFAULT '0',
-  PRIMARY KEY (`sr_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
--- Dumping data for table hostelbooking.user_queries: ~2 rows (approximately)
-INSERT INTO `user_queries` (`sr_no`, `name`, `email`, `subject`, `message`, `datentime`, `seen`) VALUES
-	(11, 'Amey', 'amey@gmail.com', 'This is one subject', 'orem ipsum dolor sit amet, consectetur adipisicing elit. Quos voluptate vero sed tempore illo atque beatae asperiores, adipisci dicta quia nisi voluptates im', '2022-03-11 00:00:00', 1),
-	(13, 'neal', 'n@gmail.com', '4a2qez', 'watT', '2022-12-13 10:10:48', 1);
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

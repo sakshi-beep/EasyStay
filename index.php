@@ -50,7 +50,7 @@
 
   <!-- check availability form -->
 
-  <!-- <div class="container availability-form">
+   <!-- <div class="container availability-form">
     <div class="row">
       <div class="col-lg-12 bg-white shadow p-4 rounded">
         <h5 class="mb-4">Check Booking Availability</h5>
@@ -96,7 +96,7 @@
         </form>
       </div>
     </div>
-  </div> -->
+  </div>  -->
 
   <!-- Our Rooms -->
 
@@ -204,7 +204,7 @@
                   <div class="guests mb-4">
                     <h6 class="mb-1">Guests</h6>
                     <span class="badge rounded-pill bg-light text-dark text-wrap">
-                      $room_data[adult] People
+                      $room_data[people] People
                     </span>
                   </div>
                   $rating_data
@@ -246,21 +246,11 @@
           data;
         }
       ?>
-
       <div class="col-lg-12 text-center mt-5">
         <a href="facilities.php" class="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none">More Facilities >>></a>
       </div>
     </div>
-  </div>
-
-  
-    
-             
-         
-          
-
- 
-              
+  </div>       
         </form>
       </div>
     </div>
@@ -300,13 +290,7 @@
 
     }
 
-  ?>
-  
-  
-
-
-    
+  ?> 
   </script>
-
 </body>
 </html>

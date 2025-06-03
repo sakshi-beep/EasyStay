@@ -1,3 +1,8 @@
+<?php
+// Include the similarity functions
+require_once('algorithm.php');
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -26,8 +31,6 @@
 
     $room_data = mysqli_fetch_assoc($room_res);
   ?>
-
-
 
   <div class="container">
     <div class="row">
@@ -94,45 +97,6 @@
                 <h4>Rs.$room_data[price] per night</h4>
               price;
 
-              // $rating_q = "SELECT AVG(rating) AS `avg_rating` FROM `rating_review`
-              //   WHERE `room_id`='$room_data[id]' ORDER BY `sr_no` DESC LIMIT 20";
-  
-              // $rating_res = mysqli_query($con,$rating_q);
-              // $rating_fetch = mysqli_fetch_assoc($rating_res);
-    
-              // $rating_data = "";
-    
-              // if($rating_fetch['avg_rating']!=NULL)
-              // {
-              //   for($i=0; $i < $rating_fetch['avg_rating']; $i++){
-              //     $rating_data .="<i class='bi bi-star-fill text-warning'></i> ";
-              //   }
-              // }
-
-              // echo<<<rating
-              //   <div class="mb-3">
-              //      $rating_data
-              //   </div>
-              // rating;
-
-              // $fea_q = mysqli_query($con,"SELECT f.name FROM `features` f 
-              //   INNER JOIN `room_features` rfea ON f.id = rfea.features_id 
-              //   WHERE rfea.room_id = '$room_data[id]'");
-
-              // $features_data = "";
-              // while($fea_row = mysqli_fetch_assoc($fea_q)){
-              //   $features_data .="<span class='badge rounded-pill bg-light text-dark text-wrap me-1 mb-1'>
-              //     $fea_row[name]
-              //   </span>";
-              // }
-
-              // echo<<<features
-              //   <div class="mb-3">
-              //     <h6 class="mb-1">Features</h6>
-              //     $features_data
-              //   </div>
-              // features;
-
               $fac_q = mysqli_query($con,"SELECT f.name FROM `facilities` f 
                 INNER JOIN `room_facilities` rfac ON f.id = rfac.facilities_id 
                 WHERE rfac.room_id = '$room_data[id]'");
@@ -179,81 +143,51 @@
                 </div>
               description;
 
-              // if(!$settings_r['shutdown']){
-              //   $login=0;
-              //   if(isset($_SESSION['login']) && $_SESSION['login']==true){
-              //     $login=1;
-              //   }
-              //   echo<<<book
-              //     <button onclick='checkLoginToBook($login,$room_data[id])' class="btn w-100 text-white custom-bg shadow-none mb-1">Book Now</button>
-              //   book;
-              // }
-
             ?>
           </div>
         </div>
       </div>
 
-      <!-- <div class="col-12 mt-4 px-4">
+      <!-- Similar Hostels Section -->
+      <div class="col-12 mt-5 px-4">
         <div class="mb-5">
-          <h5>Description</h5>
-          <p>
-            It is a hostel with heater and fan facilities as well as free wifi 
-          </p>
-        </div> -->
-
-        <div>
-          <!-- <h5 class="mb-3">Reviews & Ratings</h5> -->
-
-          <?php
-            // $review_q = "SELECT rr.*,uc.name AS uname, uc.profile, r.name AS rname FROM `rating_review` rr
-            //   INNER JOIN `user_cred` uc ON rr.user_id = uc.id
-            //   INNER JOIN `rooms` r ON rr.room_id = r.id
-            //   WHERE rr.room_id = '$room_data[id]'
-            //   ORDER BY `sr_no` DESC LIMIT 15";
-
-            // $review_res = mysqli_query($con,$review_q);
-            // $img_path = USERS_IMG_PATH;
-
-            // if(mysqli_num_rows($review_res)==0){
-            //   echo 'No reviews yet!';
-            // }
-            // else
-            // {
-            //   while($row = mysqli_fetch_assoc($review_res))
-            //   {
-            //     $stars = "<i class='bi bi-star-fill text-warning'></i> ";
-            //     for($i=1; $i<$row['rating']; $i++){
-            //       $stars .= " <i class='bi bi-star-fill text-warning'></i>";
-            //     }
-
-            //     echo<<<reviews
-            //       <div class="mb-4">
-            //         <div class="d-flex align-items-center mb-2">
-            //           <img src="$img_path$row[profile]" class="rounded-circle" loading="lazy" width="30px">
-            //           <h6 class="m-0 ms-2">$row[uname]</h6>
-            //         </div>
-            //         <p class="mb-1">
-            //           $row[review]
-            //         </p>
-            //         <div>
-            //           $stars
-            //         </div>
-            //       </div>
-            //     reviews;
-            //   }
-            // }
-          ?>
-
+          <h4 class="fw-bold mb-4">Similar Hostels You Might Like</h4>
+          <p class="text-muted mb-4">Based on facilities, location, and capacity</p>
           
+          <?php 
+            // Generate similar hostels HTML
+            echo generateSimilarHostelsHTML($con, $room_data['id']);
+          ?>
         </div>
       </div>
 
     </div>
   </div>
 
-
   <?php require('inc/footer.php'); ?>
+
+  <!-- Optional: Add some custom CSS for better styling -->
+  <style>
+    .similarity-badge {
+      background: linear-gradient(45deg, #28a745, #20c997);
+      color: white;
+      font-size: 0.75rem;
+      padding: 0.25rem 0.5rem;
+      border-radius: 12px;
+    }
+    
+    .card:hover {
+      transform: translateY(-2px);
+      transition: transform 0.2s ease-in-out;
+    }
+    
+    .facility-badge {
+      background-color: #f8f9fa;
+      border: 1px solid #dee2e6;
+      color: #495057;
+      font-size: 0.7rem;
+    }
+  </style>
 
 </body>
 </html>

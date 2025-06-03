@@ -30,7 +30,7 @@
     }
 
     $guests = json_decode($_GET['guests'],true);
-    $adults = ($guests['peoples']!='') ? $guests['peoples'] : 0;
+    $peoples = ($guests['peoples']!='') ? $guests['peoples'] : 0;
 
     $facility_list = json_decode($_GET['facility_list'],true);
 
@@ -43,7 +43,7 @@
 
 
     // query for room cards with guests filter
-    $room_res = select("SELECT * FROM `rooms` WHERE `adult`>=? AND `status`=? AND `removed`=?",[$adults,1,0],'iii');
+    $room_res = select("SELECT * FROM `rooms` WHERE `people`>=? AND `status`=? AND `removed`=?",[$peoples,1,0],'iii');
 
     while($room_data = mysqli_fetch_assoc($room_res))
     {
@@ -144,7 +144,7 @@
               <div class='guests'>
                 <h6 class='mb-1'>Guests</h6>
                 <span class='badge rounded-pill bg-light text-dark text-wrap'>
-                  $room_data[adult] People 
+                  $room_data[people] People 
                 </span>
               </div>
             </div>
